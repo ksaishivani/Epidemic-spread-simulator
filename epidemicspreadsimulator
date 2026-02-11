@@ -1,0 +1,66 @@
+from collections import deque
+
+# -------------------------------
+# Step 1: Define the contact network (Graph)
+# -------------------------------
+# Each person is a node
+# Each list shows who they are in contact with
+graph = {
+    0: [1, 2],
+    1: [0, 3],
+    2: [0, 3],
+    3: [1, 2, 4],
+    4: [3]
+}
+
+# -------------------------------
+# Step 2: Initialize population states
+# S = Susceptible, I = Infected, R = Recovered
+# -------------------------------
+states = ["S"] * 5        # Total 5 people
+states[0] = "I"           # Initial infected person (patient zero)
+
+# -------------------------------
+# Step 3: Epidemic spread function
+# -------------------------------
+def epidemic_spread(graph, states):
+    queue = deque()
+
+    # Add initially infected people to queue
+    for person in range(len(states)):
+        if states[person] == "I":
+            queue.append(person)
+
+    step = 1
+    print("Initial State:", states)
+
+    # BFS-style simulation
+    while queue:
+        print(f"\nStep {step}:")
+        current = queue.popleft()
+
+        # Spread infection to neighbors
+        for neighbor in graph[current]:
+            if states[neighbor] == "S":
+                states[neighbor] = "I"
+                queue.append(neighbor)
+                print(f"Person {neighbor} got infected")
+
+        # Current person recovers
+        states[current] = "R"
+        print(f"Person {current} recovered")
+
+        # Display current state of population
+        print("Current States:", states)
+
+        step += 1
+
+    return states
+
+# -------------------------------
+# Step 4: Run the simulation
+# -------------------------------
+final_states = epidemic_spread(graph, states)
+
+print("\nFinal Output:")
+print(final_states)
