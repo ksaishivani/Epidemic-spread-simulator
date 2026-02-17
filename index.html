@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Epidemic Spread Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Epidemic Spread Simulator</h1>
+
+    <p class="intro">
+        <h2>Introduction About The Project</h2> 
+<p>
+This project presents an interactive Epidemic Spread Simulator designed to
+demonstrate how infectious diseases propagate through populations. The system
+combines grid-based simulation, real-world population behavior, and the
+mathematical SIR (Susceptible–Infected–Recovered) model to visualize disease
+transmission and recovery.</p>
+
+<p>By allowing users to select between urban and rural population settings, the
+project highlights how population density and human contact influence epidemic
+dynamics. Real-time visual grids and population graphs help users understand
+both microscopic (individual-level) and macroscopic (population-level) effects
+of an epidemic.
+</p>
+
+    </p>
+
+    <!-- MAIN ROW -->
+    <div class="main-row">
+
+        <!-- GRID -->
+        <div class="card">
+            <h3>Population Grid (Simulation)</h3>
+            <div id="grid"></div>
+
+            <div class="legend">
+                <span class="box susceptible"></span> Susceptible
+                <span class="box infected"></span> Infected
+                <span class="box recovered"></span> Recovered
+            </div>
+        </div>
+
+        <!-- GRAPH -->
+        <div class="card">
+            <h3>Population Graph (SIR Model)</h3>
+            <canvas id="sirChart"></canvas>
+
+            <p class="graph-text">
+                <div class="graph-explanation">
+    <h4>Population Graph Explanation</h4>
+    <p>
+        The population graph represents the epidemic progression using the
+        SIR (Susceptible–Infected–Recovered) model.
+    </p>
+    <ul>
+        <li><b>Blue Curve (Susceptible):</b> Number of people who are healthy but can get infected.</li>
+        <li><b>Red Curve (Infected):</b> Number of people currently infected. This rises rapidly in urban areas.</li>
+        <li><b>Green Curve (Recovered):</b> People who recovered and gained immunity.</li>
+        <li><b>Orange Dotted Line:</b> Machine Learning–based prediction of future infection trend.</li>
+    </ul>
+    <p>
+        The graph clearly shows how infection spreads, peaks, and eventually
+        declines as recovery increases.
+    </p>
+</div>
+
+            </p>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="card controls">
+            <h3>Population Type</h3>
+
+            <select id="populationType">
+                <option value="urban">Urban Area</option>
+                <option value="rural">Rural Area</option>
+            </select>
+
+            <button onclick="startSimulation()">Start</button>
+            <button onclick="nextStep()">Next Step</button>
+            <button onclick="resetSimulation()">Reset</button>
+            <button onclick="vaccinate()">Vaccinate 10%</button>
+
+
+            <p class="control-text">
+                Start begins simulation.  
+                Next Step advances one time step.  
+                Reset clears grid, graph, and predictions.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- EXPLANATION -->
+   <div class="section explanation">
+    <h3>Urban Population Behavior</h3>
+    <p>
+        Urban areas have high population density where individuals live and travel
+        closely together. Due to frequent human interaction, the probability of
+        disease transmission is high. This results in faster infection spread and
+        larger outbreaks in a shorter time period.
+    </p>
+
+    <h3>Rural Population Behavior</h3>
+    <p>
+        Rural areas have low population density with limited daily contact between
+        individuals. Due to physical distance and fewer interactions, the spread of
+        disease is slower, resulting in smaller and delayed outbreaks compared to
+        urban regions.
+    </p>
+</div>
+
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
+
+
